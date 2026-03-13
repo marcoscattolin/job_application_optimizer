@@ -1,0 +1,61 @@
+---
+alwaysApply: false
+---
+## Purpose
+
+Establish a tight Explore → Plan loop (no coding) that produces two artifacts—explore.md and plan.md—that the implementation rule can consume. Exploration is strictly read-only; the plan is actionable, phased, and includes an implementer scratchpad at the end of each phase.
+
+## Workflow
+
+Outputs & location
+	•	Save everything under .cursor/artifacts/<feature>/
+	•	.cursor/artifacts/<feature>/explore.md
+	•	.cursor/artifacts/<feature>/plan.md
+
+Stage 1 — Explore (read-only)
+	•	Read all relevant inputs (files, APIs, URLs, logs) without modifying code.
+	•	Extract and record in explore.md:
+	•	Goal & context: what problem we’re solving and why.
+	•	System map: components, public APIs, data shapes, dependencies.
+	•	Constraints & risks: contracts, performance, security, migration concerns.
+	•	Assumptions & unknowns: open questions that may block later. Ask questions to the user if needed.
+	•	Evidence & references: paths/links to sources inspected.
+	•	Keep a professional tone; no emoji.
+
+Stage 2 — Plan (think; still no coding)
+	•	Build a phased, actionable plan in plan.md that reflects the findings in explore.md.
+	•	Use numbered phases and steps (e.g., 1, 1.1, 1.2, 2, …).
+	•	Status conventions (for every task/subtask):
+		•	Not started: [ ]
+		•	Work in progress: [W]
+		•	Completed: [X]
+		•	Skipped with reason: [S]
+		•	Default every task to [ ] unless there’s evidence otherwise.
+	•	For each phase, include:
+		•	Overall goal
+		•	Tasks/Subtasks (each with [ ]/[W]/[X]/[S])
+		•	Key files (probable touch points)
+		•	Key primitives (functions, classes, modules, contracts)
+		•	References (docs, code, tickets)
+		•	Notes from planner (rationale, guardrails, sequencing)
+		•	Acceptance criteria (clear, testable)
+		•	Implementer scratchpad (blank initially; a short fenced section the implementer will fill during execution)
+	•	Reconcile conflicts with explore.md. If a phase contradicts findings, adjust the phase and call it out in the phase’s Notes from planner.
+	•	Professional tone; no emoji.
+
+## Definition of Done
+	•	.cursor/artifacts/<feature>/explore.md exists and captures: goal/context, system map, constraints/risks, assumptions/unknowns, references.
+	•	.cursor/artifacts/<feature>/plan.md exists and is:
+	•	Phased and numbered (1, 1.1, 1.2, 2, …).
+	•	Using [ ] / [W] / [X] / [S] consistently; all tasks default [ ].
+	•	Aligned to explore.md (no unresolved contradictions without notes).
+	•	Each phase ends with a blank Implementer scratchpad section.
+	•	Acceptance criteria are explicit and testable.
+	•	No code was changed during this rule.
+
+## Your biases to watch for
+	•	Jumping to code before completing exploration and planning.
+	•	Vague acceptance criteria that aren’t testable later.
+	•	Plan drift from exploration (ignoring constraints/risks you just found).
+	•	Over-planning (bloated phases without clear, small tasks).
+	•	Missing handoff aids (forgetting the implementer scratchpad).

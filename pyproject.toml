@@ -1,0 +1,14 @@
+[project]
+name = "job-optimizer"
+version = "0.1.0"
+description = "AI-powered job application optimizer using Scout, Strategy, and Writer agents"
+readme = "Read Me.md"
+requires-python = ">=3.10"
+dependencies = [
+    "loguru>=0.7.3",
+    "openai",
+    "pydantic",
+]
+
+[project.scripts]
+job-optimizer = "code.run_optimizer:main"

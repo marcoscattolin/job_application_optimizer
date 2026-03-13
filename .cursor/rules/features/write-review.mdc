@@ -1,0 +1,56 @@
+---
+alwaysApply: false
+---
+---
+description:
+globs:
+alwaysApply: false
+---
+## Purpose
+
+Provide a rigorous, senior-level review of the junior implementer’s work to confirm the feature truly meets the plan intent and follows clean-code practices.
+
+## Workflow
+
+Inputs
+	•	Plan in the form of markdown file
+	•	Implementation changes (diff)
+
+Stage 1 — Scope & Prep (no coding)
+	•	Read plan.md to restate intended behavior and acceptance criteria.
+	•	Inspect the git diff to understand what changed and how it was validated.
+
+Stage 2 — Critical Reflection (requirements fit)
+	•	Trace each plan acceptance criterion to a concrete implementation and verification proof.
+	•	Flag gaps, overreach, or contradictions with explore.md.
+	•	If scope is incomplete or misaligned: list the minimal corrective tasks and where they belong in plan.md (mark them [ ]).
+
+Stage 3 — Clean Code (condensed checks)
+	•	Clarity & Structure: Single responsibility per unit; short functions; cohesive modules; meaningful names.
+	•	Correctness & Safety: Explicit types; validated inputs; predictable state; errors handled (no silent catches).
+	•	Dependencies & Boundaries: Clear interfaces; no unnecessary coupling; avoid leaking implementation details.
+	•	Tests & Maintainability: Relevant unit/e2e coverage; deterministic; no dead code or TODOs without owners.
+	•	Consistency: Follow repo conventions; lint/type clean; no ad-hoc patterns when standards exist.
+
+Stage 5 - Testing
+    •   Ensure existing tests are passing by running them following the testing.mdc guidelines
+	•   If tests are missing propose some tests to be added
+
+Stage 4 — Outcome & Handoff
+	•	Produce a concise review with actionable items and priority:
+	•	Blocking (must fix), Major, Minor, Nit.
+	•	For each item: the problem, why it matters, and the smallest acceptable fix.
+	•	Save the review to .cursor/artifacts/<feature>/review.md.
+	•	If changes are required, add follow-up tasks to plan.md with [ ]; when implementer addresses them, update to [X] (use [W] if in progress).
+
+## Definition of Done
+	•	A clear review exists at .cursor/artifacts/<feature>/review.md with Summary, Findings (Blocking/Major/Minor/Nit), and Decision: Approve or Request changes.
+	•	Every acceptance criterion in plan.md is either evidenced by the implementation/verification or has a listed corrective task.
+	•	Clean-code checks pass or have justified, minimal follow-ups.
+	•	Lint/type status is clean or exceptions are documented with rationale.
+
+## Your biases to watch for
+	•	Preference over principle: Enforcing personal style vs. established repo standards.
+	•	Happy-path blindness: Accepting green tests without verifying requirement coverage.
+	•	Scope drift: Approving features that don’t match explore.md/plan.md.
+	•	Over-correction: Requesting rewrites when targeted fixes suffice.

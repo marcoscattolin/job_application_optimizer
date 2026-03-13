@@ -1,0 +1,140 @@
+---
+alwaysApply: false
+---
+
+
+# Rule 1 — Disable rules in this markdown file
+Since repository structure is not yet defined you can safely discard rules contained into this markdown file.
+
+
+# Rule 2 — Repository Structure
+
+Follow this folder tree. Add new files only in the intended locations:
+
+## Project Root Structure
+
+```
+project-root/
+├── backend/                     # FastAPI Python application
+├── frontend/                    # React TypeScript application (planned)
+├── contracts/                   # API contracts and documentation
+├── docker-compose.yaml         # Docker services configuration
+├── .env                        # Environment variables
+├── .env.example               # Environment template
+└── README.md                   # Project documentation
+```
+
+## Backend Structure (`/backend`)
+
+```
+backend/
+├── api/                        # FastAPI application
+│   ├── app.py                  # Main FastAPI app configuration
+│   ├── dependencies.py         # Dependency injection providers
+│   ├── common/                 # Shared components
+│   │   ├── controllers/        # API controllers
+│   │   │   ├── run_data.py     # Run output endpoints
+│   │   │   └── run_status.py   # Run status endpoints
+│   │   ├── dto/                # Data transfer objects
+│   │   │   ├── requests.py     # Request DTOs
+│   │   │   ├── run_context.py  # Run context DTO
+│   │   │   └── run_dto.py      # Run data DTO
+│   │   ├── orm/                # SQLAlchemy models
+│   │   │   ├── base.py         # Base ORM class
+│   │   │   └── run_tracker.py  # Run tracking model
+│   │   └── repositories/       # Data access layer
+│   │       ├── base_run.py     # Repository interface
+│   │       └── sql_run.py      # SQL implementation
+│   ├── pipelines/              # Pipeline-specific code
+│   │   ├── controllers/        # Pipeline endpoints
+│   │   │   └── runs.py         # Run creation endpoints
+│   │   ├── services/           # Business logic
+│   │   │   ├── pipeline_a_service.py
+│   │   │   └── pipeline_b_service.py
+│   │   └── tasks/              # Background tasks
+│   │       └── run_pipeline.py # Pipeline execution task
+│   └── utils/                  # Utility functions
+│       ├── database.py         # Database utilities
+│       ├── enums.py            # Enum definitions
+│       ├── log.py              # Logging configuration
+│       └── runs.py             # Run utilities
+├── alembic/                    # Database migrations
+│   ├── env.py                  # Alembic environment
+│   └── versions/               # Migration files
+├── scripts/                    # Utility scripts
+│   ├── launch_pipeline.py      # Pipeline launcher
+│   └── test_endpoints.py       # Endpoint tester
+├── configs/                    # Configuration files
+│   └── logging.yaml            # Logging configuration
+├── Dockerfile                  # Container definition
+├── pyproject.toml              # Python dependencies
+└── README.md                   # Backend documentation
+```
+
+## Frontend Structure (`/frontend`) - Planned
+
+```
+frontend/
+├── src/
+│   ├── components/             # Reusable UI components
+│   ├── pages/                  # Route-level pages
+│   ├── hooks/                  # Custom React hooks
+│   ├── lib/
+│   │   ├── api/                # API client, React Query
+│   │   └── config/             # Environment, feature flags
+│   ├── types/                  # TypeScript definitions
+│   ├── state/                  # Global state management
+│   └── utils/                  # Helper functions
+├── public/                     # Static assets
+├── Dockerfile                  # Container definition
+└── package.json                # Dependencies and scripts
+```
+
+## Contracts Structure (`/contracts`)
+
+```
+contracts/
+├── openapi.json                # OpenAPI 3.1.0 specification
+└── api-contract.md             # Human-readable API documentation
+```
+
+## File Placement Rules
+
+**Cursor must:**
+- Place new API controllers in `backend/api/{domain}/controllers/`
+- Place new business logic in `backend/api/{domain}/services/`
+- Place new database models in `backend/api/common/orm/`
+- Place new DTOs in `backend/api/common/dto/`
+- Place new repositories in `backend/api/common/repositories/`
+- Place new background tasks in `backend/api/{domain}/tasks/`
+- Place new utility scripts in `backend/scripts/`
+- Place new migrations in `backend/alembic/versions/`
+- Place new configuration files in `backend/configs/`
+- Place API contracts in `contracts/`
+- Place new frontend components in `frontend/src/components/` (when implemented)
+- Place new frontend pages in `frontend/src/pages/` (when implemented)
+- Place new frontend hooks in `frontend/src/hooks/` (when implemented)
+
+**Cursor must not:**
+- Create new top-level folders without updating this rule
+- Place business logic directly in controllers
+- Place database queries directly in services (use repositories)
+- Create files outside the defined structure
+- Mix concerns between different layers (controllers, services, repositories)
+- Place frontend code in backend directories or vice versa
+
+## Domain Organization
+
+For new features, follow this pattern:
+- **Controllers**: Handle HTTP requests/responses only
+- **Services**: Contain business logic and orchestration
+- **Repositories**: Handle data access and persistence
+- **DTOs**: Define data contracts and validation
+- **Tasks**: Handle background/asynchronous processing
+
+## Import Guidelines
+
+- Use absolute imports: `from api.common.dto import RunDTO`
+- Avoid relative imports: `from ..dto import RunDTO`
+- Import from the source: `from api.pipelines.services import PipelineService`
+- Maintain clear dependency hierarchy: Controllers → Services → Repositories

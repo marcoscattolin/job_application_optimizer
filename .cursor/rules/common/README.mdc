@@ -1,0 +1,66 @@
+---
+description: Guidelines that define standards and documentation best practices for Cursor AI pair programming sessions on this project.
+globs:
+alwaysApply: true
+---
+
+# Cursor AI Rules
+
+This directory contains modular rule files that define standards and best practices for Cursor AI pair programming sessions on this project.
+
+## Purpose
+
+Rules are organized into separate files by category, making them:
+- **Easy to maintain**: Update specific rules without touching others
+- **Easy to understand**: Each file focuses on one aspect
+- **Easy to extend**: Add new rule files as needed
+
+## Current Rules
+
+### `session-documentation.md`
+Mandatory documentation standards for Cursor AI sessions:
+- File naming conventions (`YYYYMMDD/HHMMSS-descriptive-name.md`)
+- Required metadata and YAML front matter
+- Document types (implementation, technical, user guide, bugfix, etc.)
+- When to create documentation
+- Template and examples
+
+## Adding New Rules
+
+To add a new rule category:
+
+1. Create a new `.md` file in this directory
+2. Use a descriptive name (e.g., `code-style.md`, `testing-standards.md`, `git-workflow.md`)
+3. Follow the same format as existing rules
+4. Update this README with the new rule file
+
+## Rule Files Structure
+
+Each rule file should include:
+- Clear section headings
+- Examples and templates
+- Do's and don'ts
+- Rationale for the rules
+- Version and last updated date
+
+## Active Rules
+
+| Rule File | Description | Status |
+|-----------|-------------|--------|
+| `session-documentation.md` | Documentation standards for all Cursor AI work | ✅ Active |
+
+## Future Rule Categories
+
+Potential rule files to add:
+- `code-style.md` - Python coding standards specific to this project
+- `testing-standards.md` - Testing requirements and conventions
+- `git-workflow.md` - Branch naming, commit message standards
+- `databricks-conventions.md` - Databricks-specific best practices
+- `gcp-conventions.md` - GCP-specific best practices
+- `sql-style.md` - SQL formatting and naming conventions
+- `dbt-conventions.md` - dbt model organization and standards
+
+---
+
+**Last Updated**: 2025-11-19 01:36:00
+**Total Rules**: 1

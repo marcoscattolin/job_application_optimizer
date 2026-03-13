@@ -1,0 +1,48 @@
+---
+alwaysApply: false
+---
+## Purpose
+
+Efficiently address review findings so the feature truly matches the plan intent, passes verification, and is cleanly documented—without re-opening scope. Use sequential thinking to keep track of your workflow.
+
+## Workflow
+
+Inputs
+	•	.cursor/artifacts/<feature>/review.md (findings with priorities)
+	•	.cursor/artifacts/<feature>/plan.md (already edited by the reviewer)
+	•	Prior artifacts (summary.md, etc.)
+
+Stage 1 — Intake & Sync (no coding)
+	•	Parse review.md; list actionable items by priority: Blocking, Major, Minor, Nit.
+	•	Reflect them in plan.md as tasks using [ ] / [W] / [X] / [S] (default [ ]). Keep changes minimal and mapped to the original phases.
+	•	If any review item conflicts with explore.md/acceptance criteria, note the smallest acceptable adjustment directly in plan.md (rationale in “Notes from planner”).
+
+Stage 2 — Implement
+	•	Work top-down by priority; for each task:
+	•	Mark [W] while in progress; implement the minimal fix.
+	•	Add/adjust unit or e2e coverage only where needed to prove the fix.
+	•	After completion: mark [X] in the plan.md
+
+Stage 3 — Verify
+    •   Review what you implemented agains the review.md and the original plan.md, adjust and verify if needed
+
+Stage 4 — Update Plan & Summarize
+	•	In plan.md, update task statuses and (if fully satisfied) mark the feature [X] with a short completion note (what changed, tests/verification performed, tradeoffs).
+	•	In .cursor/artifacts/<feature>/summary.md, append a Review Follow-up section listing:
+	•	Items addressed (with links to evidence) and any remaining items (with owners/due).
+	•	Notable tradeoffs or deferred work and why.
+
+Stage 5 — Commit & Proceed
+	•	Commit with descriptive messages referencing the feature implemented and the changes done in the review
+	•	If remaining items exist, leave them in plan.md as [ ] or [W] with owners; otherwise proceed to the next feature/group and repeat.
+
+## Definition of Done
+	•	All Blocking and Major review items are resolved and evidenced in verification.md; Minor/Nit are either fixed or documented with rationale and due follow-up.
+	•	Clean code: fixes maintain clarity, safety, proper boundaries, and consistency; no dead code/todos without owners.
+	•	plan.md reflects final statuses; .cursor/artifacts/<feature>/summary.md contains the Review Follow-up note.
+	•	Commits are small, clear, and tied to the addressed review items.
+
+## Your biases to watch for
+	•	Gold-plating: rewriting beyond the minimal fix requested.
+	•	Happy-path bias: skipping negative/edge checks when verifying the fix.
+	•	Process drift: forgetting to update plan.md or verification.md

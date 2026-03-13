@@ -1,0 +1,226 @@
+---
+description: Guidelines that define standards and other convention on how to keep track of Cursor AI pair programming sessions for this project.
+globs:
+alwaysApply: true
+---
+# Cursor AI Documentation Standards
+
+## Session Documentation Requirements
+
+When working on any implementation, planning, or significant code changes, you MUST create comprehensive documentation following these standards:
+
+### 1. Documentation Location
+- **Directory**: `local/cursor_sessions/`
+- **Reason**: This folder is git-ignored, keeping working docs out of the repository
+- **Index**: Maintain `local/cursor_sessions/README.md` as the session tracker
+
+### 2. File Naming Convention
+Format: `YYYYMMDD/HHMMSS-descriptive-name.md`
+
+**Components**:
+- `YYYYMMDD`: Date in ISO format (e.g., 20251118 for November 18, 2025)
+- `HHMMSS`: Time in 24-hour format (e.g., 225230 for 22:52:30)
+- `descriptive-name`: Brief description using kebab-case
+- `.md`: Markdown extension
+
+**Examples**:
+- `20251118/225230-dbt-poc-complete.md` (created at 2025-11-18 22:52:30)
+- `20251205/143015-api-refactor-plan.md` (created at 2025-12-05 14:30:15)
+- `20260110/091500-bug-fix-validation.md` (created at 2026-01-10 09:15:00)
+
+### 3. Required Metadata (YAML Front Matter)
+
+Each document MUST include YAML front matter with these fields:
+
+```yaml
+---
+title: Full Document Title
+timestamp: YYYY-MM-DD HH:MM:SS
+type: document_type
+project: dsccrm-client_clustering
+task: Brief task description
+status: current_status
+---
+```
+
+**Field Descriptions**:
+- `title`: Full, descriptive title of the document
+- `timestamp`: Creation timestamp in format `YYYY-MM-DD HH:MM:SS` (e.g., `2025-11-18 22:52:30`)
+- `type`: Document type (see types below)
+- `project`: Project name (`dsccrm-client_clustering`)
+- `task`: One-line description of the task
+- `status`: Current status (e.g., `completed`, `in-progress`, `fixed`, `planned`)
+
+### 4. Document Types
+
+Use these standardized document types:
+
+- **`cursor_implementation`**: Main implementation summaries and completion reports
+- **`cursor_technical_doc`**: Technical details, specifications, and architecture
+- **`cursor_user_guide`**: User-facing documentation and how-to guides
+- **`cursor_bugfix`**: Bug fixes and corrections with problem/solution format
+- **`cursor_planning`**: Planning documents, proposals, and design docs
+- **`cursor_refactor`**: Code refactoring documentation
+- **`cursor_analysis`**: Code analysis and investigation reports
+- **`index`**: Index and README files
+
+### 5. Document Structure
+
+Each document should include:
+
+**Header Section**:
+```markdown
+# Document Title
+
+**Created**: YYYY-MM-DD HH:MM:SS
+**Type**: Document Type
+**Session**: Cursor AI Implementation
+**Status**: Current Status
+
+---
+```
+
+**Footer Section**:
+```markdown
+---
+
+**Status**: Status Indicator
+**Timestamp**: YYYY-MM-DD HH:MM:SS
+**Additional Metadata**: As needed
+```
+
+### 6. When to Create Documentation
+
+Create documentation for:
+
+✅ **Always Document**:
+- Major implementations or new features
+- Significant refactorings
+- Bug fixes that require investigation
+- Architecture decisions
+- Planning sessions
+- Multi-step changes
+- Any work spanning multiple files or modules
+
+❌ **Skip Documentation**:
+- Trivial changes (typos, formatting)
+- Single-line bug fixes
+- Simple refactors with no decision-making
+- Routine maintenance
+
+### 7. Documentation Content Guidelines
+
+**Implementation Documents** should include:
+- Summary of what was built
+- List of files created/modified
+- Key features and benefits
+- How to test
+- Next steps
+
+**Technical Documents** should include:
+- Phase-by-phase breakdown
+- File structure details
+- Technical specifications
+- Integration points
+- Configuration details
+
+**User Guides** should include:
+- Architecture overview
+- How-to instructions
+- Troubleshooting section
+- Examples and use cases
+
+**Bug Fixes** should include:
+- Problem description
+- Solution implemented
+- Code changes
+- Testing approach
+
+### 8. Index Maintenance
+
+After creating new documentation:
+
+1. **Update** `local/cursor_sessions/README.md`
+2. **Add entry** to the current session table with timestamp
+3. **Update version history** if starting a new session
+4. **Keep chronological order** in all listings
+
+### 9. Example Workflow
+
+When starting a significant task:
+
+```markdown
+1. Get current timestamp: `date +"%Y-%m-%d %H:%M:%S"`
+2. Create document: `local/cursor_sessions/YYYYMMDD/HHMMSS-task-name.md`
+3. Add YAML front matter with timestamp
+4. Document your work as you progress
+5. Add timestamp to document body (header and footer)
+6. Update the README index
+```
+
+### 10. Integration with Work
+
+- Document planning BEFORE implementation for complex tasks
+- Document implementation AFTER completion
+- Document bugs WHEN fixing them
+- Update documentation AS you make significant changes
+- Reference documentation in commit messages when appropriate
+
+## Quality Standards
+
+- Use clear, professional language
+- Include code examples where relevant
+- Add diagrams for architecture (ASCII art is fine)
+- Be comprehensive but concise
+- Make documents self-contained
+- Cross-reference related documents
+
+## Example Template
+
+```markdown
+---
+title: [Your Title Here]
+timestamp: YYYY-MM-DD HH:MM:SS
+type: cursor_implementation
+project: dsccrm-client_clustering
+task: [Brief task description]
+status: completed
+---
+
+# [Your Title Here]
+
+**Created**: YYYY-MM-DD HH:MM:SS
+**Type**: [Document Type]
+**Session**: Cursor AI Implementation
+**Status**: [Status]
+
+---
+
+## Summary
+
+[What was accomplished]
+
+## [Additional Sections]
+
+[Content here]
+
+---
+
+**Status**: [Status]
+**Timestamp**: YYYY-MM-DD HH:MM:SS
+[Additional metadata]
+```
+
+## Enforcement
+
+These are mandatory standards for all Cursor AI work on this project. Following these standards ensures:
+- Clear history of changes
+- Easy navigation of past work
+- Consistent documentation quality
+- Knowledge transfer
+- Debugging and troubleshooting support
+
+---
+
+**Last Updated**: 2025-11-18 23:00:00
+**Version**: 1.0

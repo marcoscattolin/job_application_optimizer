@@ -1,0 +1,24 @@
+---
+alwaysApply: true
+---
+## Purpose
+
+Ensure Python code is self-explanatory, consistent, and AI-friendly by maintaining clear docstrings, module headers, and helpful inline anchors.
+
+## Documentation Guidelines
+	•	Module headers: At the top of every module, add a short """...""" block describing its purpose, role in the system, and core dependencies.
+	•	Functions: Every function should have a docstring unless its name is already fully self-explanatory.
+	•	Docstring style: Use this structure:
+```
+"""Short summary.
+
+Args:
+    <param>: description
+Returns:
+    description
+"""
+```
+
+## Definition of Done
+	•	All modules and functions are documented.
+	•	AI anchors exist where dependencies or non-obvious logic need highlighting.

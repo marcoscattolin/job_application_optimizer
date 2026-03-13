@@ -1,0 +1,20 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.env
+
+# uv
+.python-version
+
+# Outputs (keep folder, ignore contents)
+outputs/*
+!outputs/.gitkeep
+job_posts/
+
+# Secrets (keep folder, ignore contents except .gitkeep)
+secrets/*
+!secrets/.gitkeep
