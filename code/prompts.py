@@ -48,4 +48,7 @@ APPLICATIONPLAN_JSON:
 
 BIOGRAPHY_PROFILE:
 {bio_md}
+
+COVER_LETTER:
+{cover_letter_md}
 """

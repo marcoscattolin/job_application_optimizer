@@ -70,6 +70,7 @@ def load_api_key() -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Job Application Optimizer")
     parser.add_argument("--bio", default="bio/BIOGRAPHY_PROFILE.md", help="Path to biography profile")
+    parser.add_argument("--cover-letter", default="bio/COVER_LETTER.md", help="Path to cover letter")
     parser.add_argument("--job", default="-", help="Path to job post (or - for stdin)")
     parser.add_argument("--lang", choices=["IT", "EN"], default="EN", help="Output language")
     parser.add_argument("--out", default="outputs", help="Output directory")
@@ -92,11 +93,14 @@ def main() -> None:
     # Load inputs
     bio = read_file(args.bio).strip()
     job_post = read_job_post(args.job).strip()
+    cover_letter = read_file(args.cover_letter).strip()
 
-    logger.info(f"Loaded biography ({len(bio)} chars) and job post ({len(job_post)} chars)")
+    logger.info(f"Loaded biography ({len(bio)} chars), job post ({len(job_post)} chars), cover letter ({len(cover_letter)} chars)")
 
     if not bio:
         raise SystemExit("Biography profile is empty.")
+    if not cover_letter:
+        raise SystemExit("Cover letter is empty.")
     if not job_post:
         raise SystemExit("Job post is empty (provide --job or pipe to stdin).")
 
@@ -132,20 +136,20 @@ def main() -> None:
     artifacts = []
 
     logger.debug("Generating cover letter...")
-    cover_letter = writer.run(jobspec, plan, bio, args.lang, "cover_letter")
+    cover_letter = writer.run(jobspec=jobspec, plan=plan, bio=bio, cover_letter=cover_letter, lang=args.lang, output_type="cover_letter")
     (out_dir / "cover_letter.md").write_text(cover_letter + "\n", encoding="utf-8")
     artifacts.append("cover_letter.md")
     logger.debug("Wrote cover_letter.md")
 
     logger.debug("Generating targeted CV...")
-    targeted_cv = writer.run(jobspec, plan, bio, args.lang, "targeted_cv_md")
+    targeted_cv = writer.run(jobspec=jobspec, plan=plan, bio=bio, cover_letter=cover_letter, lang=args.lang, output_type="targeted_cv_md")
     (out_dir / "targeted_cv.md").write_text(targeted_cv + "\n", encoding="utf-8")
     artifacts.append("targeted_cv.md")
     logger.debug("Wrote targeted_cv.md")
 
     if "headhunter_email" in plan.recommended_outputs:
         logger.debug("Generating headhunter email...")
-        headhunter = writer.run(jobspec, plan, bio, args.lang, "headhunter_email")
+        headhunter = writer.run(jobspec=jobspec, plan=plan, bio=bio, cover_letter=cover_letter, lang=args.lang, output_type="headhunter_email")
         (out_dir / "headhunter_email.md").write_text(headhunter + "\n", encoding="utf-8")
         artifacts.append("headhunter_email.md")
         logger.debug("Wrote headhunter_email.md")

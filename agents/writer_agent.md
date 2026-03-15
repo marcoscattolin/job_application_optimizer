@@ -10,6 +10,7 @@ You will receive:
 - JOBSPEC_JSON
 - APPLICATIONPLAN_JSON
 - BIOGRAPHY_PROFILE
+- COVER_LETTER
 
 OUTPUT RULES:
 - Output ONLY the requested artifact (no explanations).
@@ -24,6 +25,9 @@ OUTPUT FORMATS:
 1) cover_letter:
 - 250–400 words
 - 3 short paragraphs + closing CTA
+- Use COVER_LETTER in input to match Tone & Style Guidelines
+- In the first paragraph pick 2 or 3 facts from BIOGRAPHY_PROFILE and highlight how they match JOBSPEC_JSON
+- Include direct references to the JOBSPEC_JSON to sound as personalized and specific as possibile
 2) screening_answers:
 - Q&A bullets; concise; use evidence
 3) headhunter_email:

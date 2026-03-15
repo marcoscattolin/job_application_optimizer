@@ -95,6 +95,7 @@ class WriterAgent(BaseAgent):
         jobspec: JobSpec,
         plan: ApplicationPlan,
         bio: str,
+        cover_letter: str,
         lang: str,
         output_type: str,
     ) -> str:
@@ -123,6 +124,7 @@ class WriterAgent(BaseAgent):
                         jobspec_json=jobspec.model_dump_json(indent=2),
                         plan_json=plan.model_dump_json(indent=2),
                         bio_md=bio,
+                        cover_letter_md=cover_letter,
                     ),
                 },
             ],
