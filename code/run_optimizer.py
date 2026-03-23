@@ -23,6 +23,7 @@ from loguru import logger
 from openai import OpenAI
 
 from code.agents import ScoutAgent, StrategyAgent, WriterAgent
+from code.scraper import fetch_linkedin_job
 
 
 def read_file(path: str) -> str:
@@ -33,8 +34,11 @@ def read_file(path: str) -> str:
     return content
 
 
-def read_job_post(job_path: str) -> str:
-    """Read job post from file or stdin."""
+def read_job_post(job_path: str, url: str | None = None) -> str:
+    """Read job post from URL, file, or stdin."""
+    if url:
+        logger.debug(f"Fetching job post from URL: {url}")
+        return fetch_linkedin_job(url)
     if job_path and job_path != "-":
         logger.debug(f"Reading job post from file: {job_path}")
         content = Path(job_path).read_text(encoding="utf-8")
@@ -71,6 +75,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Job Application Optimizer")
     parser.add_argument("--bio", default="bio/BIOGRAPHY_PROFILE.md", help="Path to biography profile")
     parser.add_argument("--job", default="-", help="Path to job post (or - for stdin)")
+    parser.add_argument("--url", default=None, help="LinkedIn job posting URL (overrides --job)")
     parser.add_argument("--lang", choices=["IT", "EN"], default="EN", help="Output language")
     parser.add_argument("--out", default="outputs", help="Output directory")
     parser.add_argument("--model-structured", default="gpt-4o-mini", help="Model for Scout/Strategy")
@@ -84,6 +89,9 @@ def main() -> None:
     logger.remove()  # Remove default handler
     logger.add(sys.stderr, level=args.log_level)
 
+    if args.url and args.job != "-":
+        logger.warning("Both --url and --job provided; --url takes precedence.")
+
     logger.info(f"Starting job optimizer | lang={args.lang} | model_structured={args.model_structured} | model_writer={args.model_writer}")
 
     # Load API key from secrets file
@@ -91,7 +99,7 @@ def main() -> None:
 
     # Load inputs
     bio = read_file(args.bio).strip()
-    job_post = read_job_post(args.job).strip()
+    job_post = read_job_post(args.job, url=args.url).strip()
 
     logger.info(f"Loaded biography ({len(bio)} chars) and job post ({len(job_post)} chars)")
 
@@ -101,7 +109,12 @@ def main() -> None:
         raise SystemExit("Job post is empty (provide --job or pipe to stdin).")
 
     # Setup output directory: {out}/{job_name}/{timestamp}/
-    job_name = Path(args.job).stem if args.job != "-" else "stdin_job"
+    if args.url:
+        from code.scraper import _extract_job_id
+        job_id = _extract_job_id(args.url)
+        job_name = f"linkedin_{job_id}" if job_id else "linkedin_job"
+    else:
+        job_name = Path(args.job).stem if args.job != "-" else "stdin_job"
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     out_dir = ensure_dir(Path(args.out) / job_name / timestamp)
     logger.info(f"Output directory: {out_dir}")

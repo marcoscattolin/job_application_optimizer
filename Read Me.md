@@ -54,6 +54,9 @@ $env:OPENAI_API_KEY="sk-..."
 ### Basic Usage
 
 ```bash
+# From a LinkedIn job URL (fetches the description automatically)
+uv run job-optimizer --url "https://www.linkedin.com/jobs/view/1234567890/" --lang IT
+
 # With a job post file
 uv run python -m code.run_optimizer --job .\job_posts\job_post.txt
 
@@ -64,12 +67,15 @@ cat job_post.txt | uv run python -m code.run_optimizer
 uv run python -m code.run_optimizer --job job_post.txt --lang IT
 ```
 
+> **Note on LinkedIn scraping:** LinkedIn occasionally blocks unauthenticated requests or redirects to the login wall. If this happens, the tool will print a clear error message — copy the job description manually into a `.txt` file and use `--job` instead.
+
 ### Command Line Options
 
 | Option | Default | Description |
 |--------|---------|-------------|
 | `--bio` | `bio/BIOGRAPHY_PROFILE.md` | Path to your biography profile |
 | `--job` | `-` (stdin) | Path to job post file |
+| `--url` | — | LinkedIn job URL (takes precedence over `--job`) |
 | `--lang` | `EN` | Output language (`EN` or `IT`) |
 | `--out` | `outputs` | Output directory |
 | `--model-structured` | `gpt-4o-mini` | Model for Scout/Strategy agents |

@@ -8,6 +8,8 @@ dependencies = [
     "loguru>=0.7.3",
     "openai",
     "pydantic",
+    "requests>=2.31",
+    "beautifulsoup4>=4.12",
 ]
 
 [project.scripts]
