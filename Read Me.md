@@ -51,7 +51,15 @@ $env:OPENAI_API_KEY="sk-..."
 
 ## Usage
 
-### Basic Usage
+### Streamlit App (interfaccia grafica)
+
+```bash
+uv run streamlit run code/streamlit_app.py
+```
+
+Apre un'interfaccia web su `http://localhost:8501` dove puoi incollare un URL LinkedIn o il testo dell'annuncio direttamente nel browser.
+
+### Basic Usage (CLI)
 
 ```bash
 # From a LinkedIn job URL (fetches the description automatically)
