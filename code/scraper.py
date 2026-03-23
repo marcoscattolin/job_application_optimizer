@@ -49,7 +49,7 @@ def fetch_linkedin_job(url: str) -> str:
     logger.debug(f"Canonical URL: {fetch_url}")
 
     try:
-        resp = requests.get(fetch_url, headers=_HEADERS, timeout=_TIMEOUT)
+        resp = requests.get(fetch_url, headers=_HEADERS, timeout=_TIMEOUT, verify=False)
     except requests.RequestException as exc:
         raise ValueError(f"Network error fetching LinkedIn URL: {exc}") from exc
 
